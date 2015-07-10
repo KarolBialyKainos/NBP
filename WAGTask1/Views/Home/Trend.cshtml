@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Trend";
+}
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
+{
+    <p class="bg-warning">@ViewBag.Message</p>
+}
+
+@if (@ViewBag.Trend != null)
+{
+    <h2>Trend</h2>
+
+    <h3>Chosen date: @ViewBag.Date</h3>
+
+    <h3>Chosen currency: @ViewBag.Currency</h3>
+
+    <div>Rate: <span>@ViewBag.Trend.Rate.Rate</span> </div>
+    <div>
+        Previous rate: <span>@ViewBag.Trend.PreviousRate.Rate</span>
+    </div>
+
+    <div>
+    
+        @if (@ViewBag.Trend.Trend == 1)
+        {
+            <img src="~/images/arrow_up.png" alt="image" />
+        }
+        else if (@ViewBag.Trend.Trend == 0)
+        {
+            <span>-----</span>
+        }
+        else
+        {
+            <img src="~/images/arrow_down.png" alt="image" />
+        }
+
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Back", "Index",
+         new { controller = "Home" }, new { @class = "btn btn-primary btn-lg" })
+</p>

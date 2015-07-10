@@ -1,0 +1,38 @@
+﻿@model IEnumerable<WAGTask1.Models.Currency>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Currency check</h1>
+    <p class="lead">This app allows you to check current currency trend.</p>
+    <p>
+        <p class="container">
+            @using(Html.BeginForm("Trend","Home"))
+            {
+                <h3>Enter date:</h3>
+                @Html.TextBox("id", null, new { @class = "form-control", @id = "datepicker", @placeholder ="Enter date" })
+
+                <h3>Choose currency:</h3>
+                @Html.DropDownList("CurrencyID", null, htmlAttributes: new { @class = "form-control" })
+                <p></p>
+                <p>
+                    <input type="submit" class="btn btn-primary btn-lg" value="Check" />
+                </p>
+            }
+        </p>
+        
+    </p>
+
+</div>
+
+
+@section scripts
+{
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#datepicker').datepicker({ maxDate: 0, }).datepicker("setDate", new Date());;
+        });
+    </script>
+}
