@@ -28,24 +28,16 @@ namespace WAGTask1.Controllers
             return View();
         }
 
-        public ActionResult Trend(string id, int CurrencyID)
+        public ActionResult Trend(DateTime date, int CurrencyID)
         {
-           
-            if (string.IsNullOrEmpty(id))
-            {
-                throw new ArgumentException("Invalid Date");
-            }
-
             if (CurrencyID <= 0)
             {
                 throw new ArgumentException("Invalid Currency ID");
             }
 
             try {
-                DateTime chosenDate;
-                chosenDate = DateTime.Parse(id);
-                ViewBag.Date = chosenDate;
-                ViewBag.Trend = NBPWebController.RateWithTrendForDateAndCurrency(CurrencyID, chosenDate);
+                ViewBag.Date = date;
+                ViewBag.Trend = NBPWebController.RateWithTrendForDateAndCurrency(CurrencyID, date);
             }catch(System.FormatException )
             {
                 ViewBag.Message = "Unknown date";

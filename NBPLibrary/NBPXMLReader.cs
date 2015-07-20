@@ -11,7 +11,15 @@ namespace NBPLibrary
 {
     public class NBPXMLReader : INBPReader
     {
-        String BaseRateURL = "http://www.nbp.pl/kursy/xml/";
+        /// <summary>
+        /// Address of web service
+        /// </summary>
+        public static String BaseRateURL = "http://www.nbp.pl/kursy/xml/";
+
+        /// <summary>
+        /// Number of tries to download web service
+        /// </summary>
+        private static int NumberOfTriesAllowed = 5;
 
         #region Helper methods
 
@@ -55,14 +63,16 @@ namespace NBPLibrary
 
             string tableString;
 
-            int i = 0;
+            int numberOfTries = 0;
+
+
 
             do{
-                date = date.AddDays(-i);
+                date = date.AddDays(-numberOfTries);
                 tableString= date.ToString("yyMMdd");
                 response = list.FirstOrDefault(s => s.StartsWith("a") && s.Substring(5, 6).Equals(tableString));
-                i++;
-            } while (string.IsNullOrEmpty(response) && i < 5);
+                numberOfTries++;
+            } while (string.IsNullOrEmpty(response) && numberOfTries < NumberOfTriesAllowed);
             
             if( response != null )
                 response = response.Trim();

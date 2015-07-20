@@ -36,7 +36,7 @@ namespace WAGTask1.Tests.Controllers
 
 
         [TestMethod]
-        public void Currencies()
+        public void Currencies_ReturnsAllCurrencies()
         {
             //Arrange
             FakeBankContext mockContext = GetFakeBankContextWithCurrencies();
@@ -50,7 +50,7 @@ namespace WAGTask1.Tests.Controllers
         }
 
         [TestMethod]
-        public void Currency()
+        public void Currency_ReturnsSingleCurrency()
         {
             //Arrange 
             NBPController controller = new NBPController(GetFakeBankContextWithCurrencies());
@@ -63,7 +63,7 @@ namespace WAGTask1.Tests.Controllers
         }
 
         [TestMethod]
-        public void CurrencyByCode()
+        public void CurrencyByCode_ReturnsSingleCurrencyByCurrencyCode()
         {
             //Arrange 
             NBPController controller = new NBPController(GetFakeBankContextWithCurrencies());
@@ -76,7 +76,7 @@ namespace WAGTask1.Tests.Controllers
         }
 
         [TestMethod]
-        public void RateForDateAndCurrency(){
+        public void RateForDateAndCurrency_ReturnsCurrencyRateForGivenCurrencyAndDate(){
 
             //Arrange
             DateTime date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
@@ -92,7 +92,7 @@ namespace WAGTask1.Tests.Controllers
         }
 
         [TestMethod]
-        public void RateWithTrendForDateAndCurrency()
+        public void RateWithTrendForDateAndCurrency_ReturnsCurrencyTrendForSpecificCurrencyAndDate()
         {
 
             //Arrange
@@ -109,9 +109,10 @@ namespace WAGTask1.Tests.Controllers
             CurrencyTrend result4 = controller.RateWithTrendForDateAndCurrency(1, date.AddDays(-10));
 
             //Assert
-            Assert.AreEqual(result1.Trend, 1);
-            Assert.AreEqual(result2.Trend, -1);
-            Assert.AreEqual(result3.Trend, 0);
+            Assert.AreEqual(result1.Trend, CurrencyTrendResult.UP);
+            Assert.AreEqual(result2.Trend, CurrencyTrendResult.DOWN);
+            Assert.AreEqual(result3.Trend, CurrencyTrendResult.CONST);
+
             Assert.IsTrue(context.Currencies.Any(c => c.Code == "CUR1"));
             Assert.IsTrue(context.CurrencyRates.Any(c => c.Rate == 99.512));
             

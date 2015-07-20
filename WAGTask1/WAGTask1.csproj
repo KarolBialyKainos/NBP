@@ -128,24 +128,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\CurrencyController.cs" />
-    <Compile Include="Controllers\CurrencyRatesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NBPController.cs" />
     <Compile Include="DAL\BankContext.cs" />
-    <Compile Include="DAL\BankInitializer.cs" />
-    <Compile Include="DAL\BaseBankRepository.cs" />
-    <Compile Include="DAL\CurrencyRatesRepository.cs" />
-    <Compile Include="DAL\CurrencyRepository.cs" />
     <Compile Include="DAL\IBankContext.cs" />
-    <Compile Include="DAL\ICurrencyRatesRepository.cs" />
-    <Compile Include="DAL\ICurrencyRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\CurrencyRate.cs" />
     <Compile Include="Models\CurrencyTrend.cs" />
+    <Compile Include="Models\CurrencyTrendResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -219,16 +212,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Trend.cshtml" />
-    <Content Include="Views\Currency\Create.cshtml" />
-    <Content Include="Views\Currency\Delete.cshtml" />
-    <Content Include="Views\Currency\Details.cshtml" />
-    <Content Include="Views\Currency\Edit.cshtml" />
-    <Content Include="Views\Currency\Index.cshtml" />
-    <Content Include="Views\CurrencyRates\Create.cshtml" />
-    <Content Include="Views\CurrencyRates\Delete.cshtml" />
-    <Content Include="Views\CurrencyRates\Details.cshtml" />
-    <Content Include="Views\CurrencyRates\Edit.cshtml" />
-    <Content Include="Views\CurrencyRates\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

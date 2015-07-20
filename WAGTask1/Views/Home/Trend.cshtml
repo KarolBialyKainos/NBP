@@ -1,4 +1,5 @@
 ﻿
+@using WAGTask1.Models
 @{
     ViewBag.Title = "Trend";
 }
@@ -8,7 +9,7 @@
     <p class="bg-warning">@ViewBag.Message</p>
 }
 
-@if (@ViewBag.Trend != null)
+@if (@ViewBag.Trend != null )
 {
     <h2>Trend</h2>
 
@@ -22,12 +23,13 @@
     </div>
 
     <div>
+        
     
-        @if (@ViewBag.Trend.Trend == 1)
+        @if (@ViewBag.Trend.Trend == CurrencyTrendResult.UP)
         {
             <img src="~/images/arrow_up.png" alt="image" />
         }
-        else if (@ViewBag.Trend.Trend == 0)
+        else if (@ViewBag.Trend.Trend == CurrencyTrendResult.CONST)
         {
             <span>-----</span>
         }

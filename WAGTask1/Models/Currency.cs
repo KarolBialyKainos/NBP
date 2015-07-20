@@ -1,20 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Web;
-using System.Xml.Serialization;
+﻿using System.Collections.Generic;
 
 namespace WAGTask1.Models
 {
-    //[DataContract]
+
     public class Currency
     {
-       // [DataMember]
+
         public int ID { get; set; }
-       // [DataMember]
         public string Name { set; get; }
-       // [DataMember]
         public string Code { set; get; }
 
         public string NameWithCode

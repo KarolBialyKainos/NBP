@@ -17,13 +17,8 @@ namespace NBPLibrary.Models
         [XmlElement("kurs_sredni")]
         public string AverageRateString {
             set{
-                if (value != null)
-                {
-                    if (value.Contains(","))
-                    {
-                        value = value.Replace(",", ".");
-                    }
-                }
+                value = value != null && value.Contains(",") ? value.Replace(",", ".") : value;
+                
                 double tmpDouble = double.Parse(value, CultureInfo.InvariantCulture);
                 AverageRate = tmpDouble;
             }

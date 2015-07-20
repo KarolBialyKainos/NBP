@@ -6,20 +6,20 @@ namespace WAGTask1.Models
         public CurrencyRate Rate { set; get; }
         public CurrencyRate PreviousRate { set; get; }
 
-        public int Trend
+        public CurrencyTrendResult Trend
         {
             get{
                 if (Rate.Rate > PreviousRate.Rate)
                 {
-                    return 1;
+                    return CurrencyTrendResult.UP;
                 }
                 else if (Rate.Rate == PreviousRate.Rate)
                 {
-                    return 0;
+                    return CurrencyTrendResult.CONST;
                 }
                 else
                 {
-                    return -1;
+                    return CurrencyTrendResult.DOWN;
                 }
             }
         }
