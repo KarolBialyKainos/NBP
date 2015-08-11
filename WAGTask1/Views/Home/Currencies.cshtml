@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Currencies";
+}
+
+<h2>List of currencies</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Code</th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: currencies">
+        <tr>
+            <td data-bind="text: ID"></td>
+            <td data-bind="text: Name"></td>
+            <td data-bind="text: Code"></td>
+        </tr>
+    </tbody>
+</table>
+@section scripts{
+    <script src="~/Scripts/knockout-3.3.0.js"></script>
+    <script>
+        function Currency(data) {
+            this.ID = data.ID;
+            this.Name = data.Name;
+            this.Code = data.Code;
+        }
+        function CurrenciesViewModel() {
+            var self = this;
+            self.currencies = ko.observableArray([]);
+            
+            // Load initial state from server, convert it to Task instances, then populate self.tasks
+            $.getJSON("/api/NBP/Currencies", function (allData) {
+                var mappedCurrencies = $.map(allData, function (item) { return new Currency(item) });
+                self.currencies(mappedCurrencies);
+            });
+        }
+        ko.applyBindings(new CurrenciesViewModel());
+    </script>
+}

@@ -19,9 +19,14 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Currency check - Kainos", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                         
             </div>
-            <div class="navbar-collapse collapse">
-            </div>
+
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("List of currencies", "Currencies", "Home")  </li>
+            </ul>
+
+            
         </div>
     </div>
     <div class="container body-content">
