@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+.pages{
+    text-align: center;
+}
+.table thead{
+    color: #428BCA;
+}

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web.Http;
 using WAGTask1.DAL;
 using WAGTask1.Models;
+using System.Linq.Dynamic;
 
 namespace WAGTask1.Controllers
 {
@@ -13,6 +14,7 @@ namespace WAGTask1.Controllers
     {
         protected IBankContext context;
         protected INBPReader NBPReader;
+
 
         public NBPController(IBankContext context, INBPReader NBPReader)
         {
@@ -43,6 +45,24 @@ namespace WAGTask1.Controllers
         {
             return context.Currencies.ToList();
         }
+
+        /// <summary>
+        /// Retrieve list of all currencies from Local DB with paging and sorting
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public List<Models.Currency> CurrenciesPaged(int page = 1, int pageSize = 10, string orderBy = "Name", string orderType = "ASC")
+        {
+            List<Models.Currency> results = context.Currencies.ToList()
+                    .OrderBy(string.Format("{0} {1}", orderBy, orderType))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList<Models.Currency>();
+
+            return results;
+        }
+
+
 
 
         /// <summary>

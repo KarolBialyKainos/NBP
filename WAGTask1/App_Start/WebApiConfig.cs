@@ -21,6 +21,13 @@ namespace WAGTask1
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            config.Routes.MapHttpRoute(
+                name: "PagingActionApi",
+                routeTemplate: "api/{controller}/{action}/{page}/{pageSize}/{orderBy}/{orderType}",
+                defaults: new { orderBy = "Name", orderType = "ASC", pageSize = 10, page = 1 },
+                constraints: new { page = @"\d+", pageSize = @"\d+", orderBy = @"ID|Name|Code", orderType = @"ASC|DESC" }
+            );
+
         }
     }
 }

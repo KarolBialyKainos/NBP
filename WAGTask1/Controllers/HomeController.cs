@@ -51,10 +51,12 @@ namespace WAGTask1.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Page with list of currencies
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Currencies()
         {
-            //List<Currency> currencies = NBPWebController.Currencies();
-            //ViewBag.Currencies = currencies;
             return View();
         }
     }

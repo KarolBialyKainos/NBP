@@ -43,10 +43,30 @@ namespace WAGTask1.Tests.Controllers
             NBPController controller = new NBPController(mockContext);
 
             //Act
-            IEnumerable<Currency> result = controller.Currencies();
+            IEnumerable<Currency> result = controller.CurrenciesPaged();
 
             //Assert
             Assert.AreEqual(result.Count<Currency>(), mockContext.Currencies.Count<Currency>());
+        }
+
+        [TestMethod]
+        public void Currencies_ReturnsPagedCurrencies()
+        {
+            //Arrange
+            FakeBankContext mockContext = GetFakeBankContextWithCurrencies();
+            NBPController controller = new NBPController(mockContext);
+
+            //Act
+            IEnumerable<Currency> result1 = controller.CurrenciesPaged(1, 2, "Code", "ASC");
+            IEnumerable<Currency> result2 = controller.CurrenciesPaged(1, 2, "Code", "DESC");
+            IEnumerable<Currency> result3 = controller.CurrenciesPaged(2, 2, "Code", "ASC");
+
+            //Assert
+            Assert.AreEqual(result1.Count<Currency>(), 2);
+            Assert.AreEqual(result1.First().Code, "EUR");
+            Assert.AreEqual(result2.First().Code, "USD");
+            Assert.AreEqual(result3.Count<Currency>(), 1);
+            Assert.AreEqual(result3.First().Code, "USD");
         }
 
         [TestMethod]

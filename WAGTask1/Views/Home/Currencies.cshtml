@@ -8,9 +8,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Code</th>
+            <th><a href="#" data-bind="click:sortTable">ID</a><span data-bind="visible: orderBy() == 'ID' && orderType() == 'DESC'">▼</span><span data-bind="visible: orderBy() == 'ID' && orderType() == 'ASC'">▲</span></th>
+            <th><a href="#" data-bind="click:sortTable">Name</a><span data-bind="visible: orderBy() == 'Name' && orderType() == 'DESC'">▼</span><span data-bind="visible: orderBy() == 'Name' && orderType() == 'ASC'">▲</span></th>
+            <th><a href="#" data-bind="click:sortTable">Code</a><span data-bind="visible: orderBy() == 'Code' && orderType() == 'DESC'">▼</span><span data-bind="visible: orderBy() == 'Code' && orderType() == 'ASC'">▲</span></th>
         </tr>
     </thead>
     <tbody data-bind="foreach: currencies">
@@ -21,6 +21,11 @@
         </tr>
     </tbody>
 </table>
+<div class="pages">
+    Page <span data-bind="text: page"></span><br />
+    <span data-bind="visible: page() > 1"><a href="#" data-bind="click:previousPage">&laquo; Previous</a></span>
+    <span data-bind="visible: currencies().length == pageSize"><a href="#" data-bind="click:nextPage">Next &raquo;</a></span>
+</div>
 @section scripts{
     <script src="~/Scripts/knockout-3.3.0.js"></script>
     <script>
@@ -31,14 +36,51 @@
         }
         function CurrenciesViewModel() {
             var self = this;
+
+            self.pageSize = 15;
+            self.page = ko.observable(1);
+
+            self.orderBy = ko.observable("Name");
+            self.orderType = ko.observable("ASC");
+
             self.currencies = ko.observableArray([]);
             
-            // Load initial state from server, convert it to Task instances, then populate self.tasks
-            $.getJSON("/api/NBP/Currencies", function (allData) {
-                var mappedCurrencies = $.map(allData, function (item) { return new Currency(item) });
-                self.currencies(mappedCurrencies);
-            });
+            self.sortTable = function (data,event) {
+                var orderByNewField = event.currentTarget.innerText;
+                if (self.orderBy() == orderByNewField) {
+                    self.orderType(self.orderType() == "ASC" ? "DESC" : "ASC");
+                }
+                self.orderBy(orderByNewField);
+                
+                self.page(1);
+                self.loadPage(self.page());
+            }
+            
+
+            self.loadPage = function (page) {
+                self.currencies([]);
+                // Load initial state from server, convert it to Task instances, then populate self.tasks
+                $.getJSON("/api/NBP/CurrenciesPaged/" + page + "/" + self.pageSize + "/" + self.orderBy() + "/" + self.orderType(), function (allData) {
+                    var mappedCurrencies = $.map(allData, function (item) { return new Currency(item) });
+                    self.currencies(mappedCurrencies);
+                });
+            }
+
+            self.nextPage = function () {
+                self.page(self.page() + 1);
+                self.loadPage(self.page());
+            }
+
+            self.previousPage = function () {
+                self.page(self.page() - 1 );
+                self.loadPage(self.page());
+            }
+
+
+            self.loadPage(self.page());
         }
+
+
         ko.applyBindings(new CurrenciesViewModel());
     </script>
 }
