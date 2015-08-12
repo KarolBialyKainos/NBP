@@ -43,7 +43,7 @@ namespace WAGTask1.Tests.Controllers
             NBPController controller = new NBPController(mockContext);
 
             //Act
-            IEnumerable<Currency> result = controller.CurrenciesPaged();
+            IEnumerable<Currency> result = controller.Currencies();
 
             //Assert
             Assert.AreEqual(result.Count<Currency>(), mockContext.Currencies.Count<Currency>());
